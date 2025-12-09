@@ -19,11 +19,11 @@ from scapy.all import sniff, TCP, UDP, ICMP, IP
 from scapy.utils import PcapWriter
 from scapy.arch.windows import get_windows_if_list
 
-# --- Constants & Configuration ---
+# Constants & Configuration 
 UI_UPDATE_INTERVAL_MS = 100 
 GRAPH_HISTORY_SIZE = 120
 
-# --- 1. The Sniffer Process ---
+# 1. The Sniffer Process 
 def run_sniffer_process(iface, cap_filter, data_queue, stop_event, pcap_filename):
     """
     Runs in a separate process. 
@@ -40,11 +40,11 @@ def run_sniffer_process(iface, cap_filter, data_queue, stop_event, pcap_filename
             return
 
         try:
-            # --- A. Save to Disk (PCAP) ---
+            # A. Save to Disk (PCAP)
             if pcap_writer:
                 pcap_writer.write(pkt)
 
-            # --- B. Extract Stats for GUI ---
+            # B. Extract Stats for GUI 
             ts = time.time()
             pkt_len = len(pkt)
             
@@ -69,7 +69,7 @@ def run_sniffer_process(iface, cap_filter, data_queue, stop_event, pcap_filename
             # Summary (Limited length to save IPC bandwidth)
             summary = pkt.summary()[:100]
 
-            # Pack data into a tuple (Updated to include raw IPs for Top Talkers)
+            # Pack data into a tuple 
             packet_data = (ts, pkt_len, proto, src_ip, dst_ip, summary)
             
             data_queue.put(packet_data)
@@ -279,7 +279,7 @@ class NetworkAnalyzer(QMainWindow):
         graph_cont_layout.addLayout(graph_layout)
         splitter.addWidget(graph_container)
 
-        # --- Top Talkers Table (REPLACED Active Flows) ---
+        #  Top Talkers Table
         flow_group = QGroupBox("Top Talkers (Highest Bandwidth IPs)")
         flow_layout = QVBoxLayout(flow_group)
         self.table_talkers = QTableWidget(0, 3)
@@ -405,7 +405,7 @@ class NetworkAnalyzer(QMainWindow):
                     self.log_message(f"Error: {data[1]}")
                     continue
                 
-                # Unpack Tuple (Updated format)
+                # Unpack Tuple
                 ts, pkt_len, proto, src_ip, dst_ip, summary = data
                 
                 # Update Stats
@@ -501,3 +501,4 @@ if __name__ == "__main__":
     window = NetworkAnalyzer()
     window.show()
     sys.exit(app.exec())
+
