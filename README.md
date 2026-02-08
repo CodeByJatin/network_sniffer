@@ -1,4 +1,4 @@
-# Network Traffic Analyzer Pro
+# Network Traffic Analyzer
 
 A real-time network packet capture and analysis tool with a sleek dark-themed GUI.
 
