@@ -56,3 +56,7 @@ python network_analyzer.py
 ---
 
 *Built with PySide6, PyQtGraph, and Scapy*
+## Interface Preview
+
+![Dashboard](dashboard.png)
+
